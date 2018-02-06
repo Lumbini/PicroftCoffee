@@ -4,16 +4,14 @@ import socket
 import ssl
 from time import sleep
 from random import uniform
+import json
 
 connect_flag = False
-publish_flag = False
+payload = "something"
 
 def on_connect(client, userdata, flags, rc):
 	global connect_flag
 	connect_flag = True
-
-	global publish_flag
-	publish_flag = True
 
 def on_message(client, userdata, msg):	
 	print (msg.topic + " " + str(msg.payload))
@@ -34,15 +32,16 @@ mqtt_client.tls_set(ca_path, certfile=cert_path, keyfile=key_path, cert_reqs=ssl
 
 mqtt_client.connect(aws_host, aws_port)
 
-mqtt_client.loop_start()
+#mqtt_client.loop_start()
 
-while(1):
-	sleep(0.5)
-	if connect_flag == True and publish_flag == True:
-		temp = uniform(20.0, 25.0)
-		mqtt_client.publish("PicroftCoffee-Policy", temp, qos=1)
-		print ("message sent: " + str(temp))
-	elif connect_flag == False:
-		print ("Waiting for connection...")
-	elif publish_flag == False:
-		print ("No message to publish")
+# def pub_message(*args):
+# 	payload = str(args)
+# 	mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
+# 	print ("payload: " + str(args))
+	
+# while(1):
+# 	sleep(0.5)
+# 	if connect_flag == True:
+# 		pub_message()
+# 	else:
+# 		print ("Waiting for connection...")
