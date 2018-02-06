@@ -1,0 +1,7 @@
+{
+  "utterance": "Start",
+  "intent_type": "MachineOnIntent",
+  "intent": {
+    "MachineOnKeyword": "start"
+  }
+}

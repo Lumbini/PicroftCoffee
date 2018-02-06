@@ -1,0 +1,7 @@
+{
+  "utterance": "Switch on",
+  "intent_type": "MachineOnIntent",
+  "intent": {
+    "MachineOnKeyword": "switch on"
+  }
+}

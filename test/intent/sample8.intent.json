@@ -1,0 +1,7 @@
+{
+  "utterance": "Shutdown",
+  "intent_type": "MachineOffIntent",
+  "intent": {
+    "MachineOffKeyword": "shutdown"
+  }
+}
