@@ -79,7 +79,7 @@ class MachineControlSkill(MycroftSkill):
     # the method is called.
     def handle_machine_on_intent(self, message):
         self.speak_dialog("machine.on")
-        print (str(message))
+        
 
     def handle_machine_off_intent(self, message):
         self.speak_dialog("machine.off")
