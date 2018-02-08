@@ -122,7 +122,7 @@ class MachineControlSkill(MycroftSkill):
         print (msg.topic + " " + str(msg.payload))
 
 
-    def actionFunction(keyword, coffeeType):
+    def actionFunction(self, keyword, coffeeType):
         if (action == "brew") or (action == "make"):
             # Change state to BREWING
             # Turn on an LED
@@ -144,7 +144,7 @@ class MachineControlSkill(MycroftSkill):
             #print ("sent: " + payload)
             mqtt_client.loop_stop()
 
-    def controlFunction(keyword):
+    def controlFunction(self, keyword):
         if (keyword == "off") or (keyword == "shutdown"):
             # Might be useful to first check if the coffee machine is already off,
             #   or in the middle of brewing. 
