@@ -120,38 +120,7 @@ class MachineControlSkill(MycroftSkill):
 
     def on_message(client, userdata, msg):  
         print (msg.topic + " " + str(msg.payload))
-
-
-    def handle_machine_on_intent(self, message):
-        keyword = message.data.get("MachineOnKeyword")
-        machineControl.controlFunction(keyword)
-        self.speak_dialog("machine.on")
-
-    def handle_machine_off_intent(self, message):
-        keyword = message.data.get("MachineOffKeyword")
-        machineControl.controlFunction(keyword)
-        self.speak_dialog("machine.off")
-
-    def handle_action_intent(self, message):
-        keyword = str(message.data.get("ActionKeyword").lower())
-        coffeeType = str(message.data.get("CoffeeTypeKeyword").lower())
-        action.actionFunction(keyword, coffeeType)
-        self.speak_dialog("The coffee machine will " + keyword + "your " + coffeeType)
-
-    # def handle_coffee_size_intent(self, message):
-    #     keyword = message.data.get("CoffeeSizeKeyword")
-    #     coffeeSize.coffeeSizeFunction(keyword)
-    #     self.speak_dialog("I got the Size")
-
-    # def handle_coffee_type_intent(self, message):
-    #     keyword = message.data.get("CoffeeTypeKeyword")
-    #     coffeeType.coffeeTypeFunction(keyword)
-    #     self.speak_dialog("I got the type")
-
-    # def make_coffee(self, key, value):
-    #     coffee[str(key)] = str(value)
-    #     print(coffee)
-    def actionFunction(keyword, coffeeType):
+            def actionFunction(keyword, coffeeType):
         if (action == "brew") or (action == "make"):
             # Change state to BREWING
             # Turn on an LED
@@ -192,6 +161,38 @@ class MachineControlSkill(MycroftSkill):
             mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
             #print ("sent: " + payload)
             mqtt_client.loop_stop()
+
+
+
+    def handle_machine_on_intent(self, message):
+        keyword = message.data.get("MachineOnKeyword")
+        machineControl.controlFunction(keyword)
+        self.speak_dialog("machine.on")
+
+    def handle_machine_off_intent(self, message):
+        keyword = message.data.get("MachineOffKeyword")
+        machineControl.controlFunction(keyword)
+        self.speak_dialog("machine.off")
+
+    def handle_action_intent(self, message):
+        keyword = str(message.data.get("ActionKeyword").lower())
+        coffeeType = str(message.data.get("CoffeeTypeKeyword").lower())
+        action.actionFunction(keyword, coffeeType)
+        self.speak_dialog("The coffee machine will " + keyword + "your " + coffeeType)
+
+    # def handle_coffee_size_intent(self, message):
+    #     keyword = message.data.get("CoffeeSizeKeyword")
+    #     coffeeSize.coffeeSizeFunction(keyword)
+    #     self.speak_dialog("I got the Size")
+
+    # def handle_coffee_type_intent(self, message):
+    #     keyword = message.data.get("CoffeeTypeKeyword")
+    #     coffeeType.coffeeTypeFunction(keyword)
+    #     self.speak_dialog("I got the type")
+
+    # def make_coffee(self, key, value):
+    #     coffee[str(key)] = str(value)
+    #     print(coffee)
 
 
 
