@@ -1,7 +1,8 @@
 {
-  "utterance": "Start",
+  "utterance": "start the coffee machine",
   "intent_type": "MachineOnIntent",
   "intent": {
-    "MachineOnKeyword": "start"
+    "MachineOnKeyword": "start", 
+    "CoffeeMachineKeyword": "coffee machine"
   }
 }

@@ -1,0 +1,9 @@
+{
+  "utterance": "make me a small latte",
+  "intent_type": "ActionIntent",
+  "intent": {
+    "ActionKeyword": "make",
+    "CoffeeSizeKeyword": "small",
+    "CoffeeTypeKeyword": "latte"
+  }
+}

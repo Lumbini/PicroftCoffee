@@ -1,0 +1,9 @@
+{
+  "utterance": "stop the small coffee",
+  "intent_type": "ActionIntent",
+  "intent": {
+    "ActionKeyword": "stop",
+    "CoffeeSizeKeyword": "small",
+    "CoffeeTypeKeyword": "coffee"
+  }
+}

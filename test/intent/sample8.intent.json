@@ -1,7 +1,9 @@
 {
-  "utterance": "Shutdown",
-  "intent_type": "MachineOffIntent",
+  "utterance": "brew me a medium cappucino",
+  "intent_type": "ActionIntent",
   "intent": {
-    "MachineOffKeyword": "shutdown"
+    "ActionKeyword": "brew",
+    "CoffeeSizeKeyword": "medium",
+    "CoffeeTypeKeyword": "cappucino"
   }
 }

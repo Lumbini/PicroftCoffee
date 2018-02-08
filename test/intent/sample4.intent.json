@@ -1,8 +1,8 @@
 {
-  "utterance": "shutdown the coffee machine",
+  "utterance": "turn off the coffee machine",
   "intent_type": "MachineOffIntent",
   "intent": {
-    "MachineOffKeyword": "shutdown",
+    "MachineOffKeyword": "off", 
     "CoffeeMachineKeyword": "coffee machine"
   }
 }

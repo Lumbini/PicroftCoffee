@@ -8,17 +8,17 @@ def controlFunction(keyword):
 		#	or in the middle of brewing. 
 		payload = "Power OFF"
 		mP.mqtt_client.loop_start()
-		#sleep(0.1)
+		sleep(0.1)
 		mP.mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
-		print ("sent: " + payload)
+		#print ("sent: " + payload)
 		mP.mqtt_client.loop_stop()
 
 	elif (keyword == "on") or (keyword == "start"):
 		# Send message to turn on coffee
 		payload = "Power ON"
 		mP.mqtt_client.loop_start()
-		#sleep(0.1)
+		sleep(0.1)
 		mP.mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
-		print ("sent: " + payload)
+		#print ("sent: " + payload)
 		mP.mqtt_client.loop_stop()
 

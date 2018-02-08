@@ -55,24 +55,24 @@ class MachineControlSkill(MycroftSkill):
         self.load_data_files(dirname(__file__))
 
         machine_on_intent = IntentBuilder("MachineOnIntent").\
-            require("MachineOnKeyword").build()
+            require("MachineOnKeyword").require("CoffeeMachineKeyword").build()
         self.register_intent(machine_on_intent, self.handle_machine_on_intent)
 
         machine_off_intent = IntentBuilder("MachineOffIntent").\
-            require("MachineOffKeyword").build()
+            require("MachineOffKeyword").require("CoffeeMachineKeyword").build()
         self.register_intent(machine_off_intent, self.handle_machine_off_intent)
 
         action_intent = IntentBuilder("ActionIntent").\
-            require("ActionKeyword").build()
+            require("ActionKeyword").optionally("CoffeeSizeKeyword").require("CoffeeTypeKeyword").build()
         self.register_intent(action_intent, self.handle_action_intent)
 
-        coffee_size_intent = IntentBuilder("CoffeeSizeIntent").\
-            require("CoffeeSizeKeyword").build()
-        self.register_intent(coffee_size_intent, self.handle_coffee_size_intent)
+        # coffee_size_intent = IntentBuilder("CoffeeSizeIntent").\
+        #     require("CoffeeSizeKeyword").build()
+        # self.register_intent(coffee_size_intent, self.handle_coffee_size_intent)
 
-        coffe_type_intent = IntentBuilder("CoffeeTypeIntent").\
-            require("CoffeeTypeKeyword").build()
-        self.register_intent(coffe_type_intent, self.handle_coffee_type_intent)
+        # coffe_type_intent = IntentBuilder("CoffeeTypeIntent").\
+        #     require("CoffeeTypeKeyword").build()
+        # self.register_intent(coffe_type_intent, self.handle_coffee_type_intent)
 
     # The "handle_xxxx_intent" functions define Mycroft's behavior when
     # each of the skill's intents is triggered: in this case, he simply
@@ -91,19 +91,20 @@ class MachineControlSkill(MycroftSkill):
         self.speak_dialog("machine.off")
 
     def handle_action_intent(self, message):
-        keyword = message.data.get("ActionKeyword").lower()
-        action.actionFunction(action)
-        self.speak_dialog("The coffee machine will " + action)
+        keyword = str(message.data.get("ActionKeyword").lower())
+        coffeeType = str(message.data.get("CoffeeTypeKeyword").lower())
+        action.actionFunction(keyword, coffeeType)
+        self.speak_dialog("The coffee machine will " + keyword + "your " + coffeeType)
 
-    def handle_coffee_size_intent(self, message):
-        keyword = message.data.get("CoffeeSizeKeyword")
-        coffeeSize.coffeeSizeFunction(keyword)
-        self.speak_dialog("I got the Size")
+    # def handle_coffee_size_intent(self, message):
+    #     keyword = message.data.get("CoffeeSizeKeyword")
+    #     coffeeSize.coffeeSizeFunction(keyword)
+    #     self.speak_dialog("I got the Size")
 
-    def handle_coffee_type_intent(self, message):
-        keyword = message.data.get("CoffeeTypeKeyword")
-        coffeeType.coffeeTypeFunction(keyword)
-        self.speak_dialog("I got the type")
+    # def handle_coffee_type_intent(self, message):
+    #     keyword = message.data.get("CoffeeTypeKeyword")
+    #     coffeeType.coffeeTypeFunction(keyword)
+    #     self.speak_dialog("I got the type")
 
     # def make_coffee(self, key, value):
     #     coffee[str(key)] = str(value)

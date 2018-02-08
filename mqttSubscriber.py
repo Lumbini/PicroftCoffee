@@ -14,7 +14,6 @@ def msg_receive(msg):
 	print ("topic: " + msg.topic)
 	print ("payload: " + str(msg.payload))
 
-	
 def on_message(client, userdata, msg):
 	msg_receive(msg)
 
