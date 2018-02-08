@@ -120,7 +120,9 @@ class MachineControlSkill(MycroftSkill):
 
     def on_message(client, userdata, msg):  
         print (msg.topic + " " + str(msg.payload))
-            def actionFunction(keyword, coffeeType):
+
+
+    def actionFunction(keyword, coffeeType):
         if (action == "brew") or (action == "make"):
             # Change state to BREWING
             # Turn on an LED
