@@ -24,15 +24,21 @@
 # Import statements: the list of outside modules you'll be using in your
 # skills, whether from other files in mycroft-core or from external libraries
 from os.path import dirname
-
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill
 from mycroft.util.log import getLogger
+from time import sleep
+import paho.mqtt.client as mqtt 
+import os
+import socket 
+import ssl
+from random import uniform
+import json
 
-import action
-import machineControl
-import coffeeType
-import coffeeSize
+# import action
+# import machineControl
+# import coffeeType
+# import coffeeSize
 
 __author__ = 'lumbini'
 
@@ -43,11 +49,21 @@ LOGGER = getLogger(__name__)
 # The logic of each skill is contained within its own class, which inherits
 # base methods from the MycroftSkill class with the syntax you can see below:
 # "class ____Skill(MycroftSkill)"
+
+
+
 class MachineControlSkill(MycroftSkill):
 
     # The constructor of the skill, which calls MycroftSkill's constructor
     def __init__(self):
         super(MachineControlSkill, self).__init__(name="MachineControlSkill")
+        self.aws_host = None
+        self.aws_port = None
+        self.thing_name = None
+        self.client_id = None
+        self.ca_path = None
+        self.cert_path = None
+        self.key_path = None
 
     # This method loads the files needed for the skill's functioning, and
     # creates and registers each intent that the skill uses
@@ -80,7 +96,33 @@ class MachineControlSkill(MycroftSkill):
     # actually speak the text it's passed--instead, that text is the filename
     # of a file in the dialog folder, and Mycroft speaks its contents when
     # the method is called.
-    def handle_machine_on_intent(self, message):\
+
+    def initialize_mqtt(self):
+        self.aws_host = "a3s6q2w7jgbcoj.iot.us-east-1.amazonaws.com"
+        self.aws_port = 8883
+        self.client_id = "PicroftCoffee"
+        self.thing_name = "PicroftCoffee"
+        self.ca_path = "cert/root-CA.crt"
+        self.cert_path = "cert/2fde82229d-certificate.pem.crt"
+        self.key_path = "cert/2fde82229d-private.pem.key"
+
+        mqtt_client = mqtt.Client()
+        mqtt_client.on_connect = on_connect
+        mqtt_client.on_message = on_message
+
+        mqtt_client.tls_set(ca_path, certfile=cert_path, keyfile=key_path, cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)
+
+        mqtt_client.connect(aws_host, aws_port)
+
+    def on_connect(client, userdata, flags, rc):
+        global connect_flag
+        connect_flag = True
+
+    def on_message(client, userdata, msg):  
+        print (msg.topic + " " + str(msg.payload))
+
+
+    def handle_machine_on_intent(self, message):
         keyword = message.data.get("MachineOnKeyword")
         machineControl.controlFunction(keyword)
         self.speak_dialog("machine.on")
@@ -109,6 +151,49 @@ class MachineControlSkill(MycroftSkill):
     # def make_coffee(self, key, value):
     #     coffee[str(key)] = str(value)
     #     print(coffee)
+    def actionFunction(keyword, coffeeType):
+        if (action == "brew") or (action == "make"):
+            # Change state to BREWING
+            # Turn on an LED
+            # Publish message over mqtt to turn on LED
+            payload = "State BREW " + coffeeType
+            mqtt_client.loop_start()
+            sleep(0.1)
+            mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
+            #print ("sent: " + payload)
+            mqtt_client.loop_stop()
+            
+        elif (action == "cancel") or (action == "stop"):
+            # Change state to NOT_BUSY
+            # Publish message to turn off LED
+            payload = "State WAIT " + coffeeType
+            mP.mqtt_client.loop_start()
+            sleep(0.1)
+            mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
+            #print ("sent: " + payload)
+            mqtt_client.loop_stop()
+
+    def controlFunction(keyword):
+        if (keyword == "off") or (keyword == "shutdown"):
+            # Might be useful to first check if the coffee machine is already off,
+            #   or in the middle of brewing. 
+            payload = "Power OFF"
+            mqtt_client.loop_start()
+            sleep(0.1)
+            mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
+            #print ("sent: " + payload)
+            mqtt_client.loop_stop()
+
+        elif (keyword == "on") or (keyword == "start"):
+            # Send message to turn on coffee
+            payload = "Power ON"
+            mqtt_client.loop_start()
+            sleep(0.1)
+            mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
+            #print ("sent: " + payload)
+            mqtt_client.loop_stop()
+
+
 
     # The "stop" method defines what Mycroft does when told to stop during
     # the skill's execution. In this case, since the skill's functionality
