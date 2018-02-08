@@ -14,6 +14,7 @@ def actionFunction(action):
 		mP.mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
 		print ("sent: " + payload)
 		mP.mqtt_client.loop_stop()
+		
 	elif (action == "cancel") or (action == "stop"):
 		# Change state to NOT_BUSY
 		# Publish message to turn off LED

@@ -29,7 +29,10 @@ from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill
 from mycroft.util.log import getLogger
 
-from skillFunctions.action import actionFunction
+import action
+import machineControl
+import coffeeType
+import coffeeSize
 
 __author__ = 'lumbini'
 
@@ -77,28 +80,34 @@ class MachineControlSkill(MycroftSkill):
     # actually speak the text it's passed--instead, that text is the filename
     # of a file in the dialog folder, and Mycroft speaks its contents when
     # the method is called.
-    def handle_machine_on_intent(self, message):
+    def handle_machine_on_intent(self, message):\
+        keyword = message.data.get("MachineOnKeyword")
+        machineControl.controlFunction(keyword)
         self.speak_dialog("machine.on")
-        
 
     def handle_machine_off_intent(self, message):
+        keyword = message.data.get("MachineOffKeyword")
+        machineControl.controlFunction(keyword)
         self.speak_dialog("machine.off")
 
     def handle_action_intent(self, message):
-        try:
-            action = message.data.get("ActionKeyword").lower()
-            actionFunction(action)
-
-        except Exception as e:
-            LOGGER.error("Error: {0}".format(e))
-
+        keyword = message.data.get("ActionKeyword").lower()
+        action.actionFunction(action)
         self.speak_dialog("The coffee machine will " + action)
 
     def handle_coffee_size_intent(self, message):
-        self.speak_dialog("")
+        keyword = message.data.get("CoffeeSizeKeyword")
+        coffeeSize.coffeeSizeFunction(keyword)
+        self.speak_dialog("I got the Size")
 
     def handle_coffee_type_intent(self, message):
-        self.speak_dialog("")
+        keyword = message.data.get("CoffeeTypeKeyword")
+        coffeeType.coffeeTypeFunction(keyword)
+        self.speak_dialog("I got the type")
+
+    # def make_coffee(self, key, value):
+    #     coffee[str(key)] = str(value)
+    #     print(coffee)
 
     # The "stop" method defines what Mycroft does when told to stop during
     # the skill's execution. In this case, since the skill's functionality

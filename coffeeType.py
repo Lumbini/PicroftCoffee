@@ -11,6 +11,7 @@ def coffeeTypeFunction(keyword):
 		mP.mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
 		print ("sent: " + payload)
 		mP.mqtt_client.loop_stop()
+
 	elif (keyword == "medium"):
 		# Send message to turn on coffee
 		payload = "Size MEDIUM"
@@ -19,6 +20,7 @@ def coffeeTypeFunction(keyword):
 		mP.mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
 		print ("sent: " + payload)
 		mP.mqtt_client.loop_stop()
+		
 	elif (keyword == "large"):
 		# Send message to turn on coffee
 		payload = "Size LARGE"

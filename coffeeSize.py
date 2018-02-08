@@ -11,6 +11,7 @@ def coffeeSizeFunction(keyword):
 		mP.mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
 		print ("sent: " + payload)
 		mP.mqtt_client.loop_stop()
+
 	elif (keyword == "cappuccino"):
 		# Send message to turn on coffee
 		payload = "Size CAPPUCCINO"
@@ -19,6 +20,7 @@ def coffeeSizeFunction(keyword):
 		mP.mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
 		print ("sent: " + payload)
 		mP.mqtt_client.loop_stop()
+
 	elif (keyword == "regular"):
 		# Send message to turn on coffee
 		payload = "Size REGULAR"
@@ -27,6 +29,7 @@ def coffeeSizeFunction(keyword):
 		mP.mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
 		print ("sent: " + payload)
 		mP.mqtt_client.loop_stop()
+		
 	elif (keyword == "coffee"):
 		# Send message to turn on coffee
 		payload = "Size REGULAR"
