@@ -134,7 +134,7 @@ class MachineControlSkill(MycroftSkill):
             # Publish message over mqtt to turn on LED
             payload = "State BREW " + coffeeType
             # self.mqtt_client.loop_start()
-            sleep(0.5)
+            # sleep(0.5)
             self.mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
             #print ("sent: " + payload)
             # self.mqtt_client.loop_stop()
@@ -149,8 +149,8 @@ class MachineControlSkill(MycroftSkill):
             #print ("sent: " + payload)
             # self.mqtt_client.loop_stop()
 
-    def controlFunction(self, keyword):
-        if (keyword == "off") or (keyword == "shutdown"):
+    def controlFunction(self, control):
+        if (control == "off") or (control == "shutdown"):
             # Might be useful to first check if the coffee machine is already off,
             #   or in the middle of brewing. 
             payload = "Power OFF"
@@ -160,7 +160,7 @@ class MachineControlSkill(MycroftSkill):
             #print ("sent: " + payload)
             # self.mqtt_client.loop_stop()
 
-        elif (keyword == "on") or (keyword == "start"):
+        elif (control == "on") or (control == "start"):
             # Send message to turn on coffee
             payload = "Power ON"
             # self.mqtt_client.loop_start()
