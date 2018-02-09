@@ -112,9 +112,9 @@ class MachineControlSkill(MycroftSkill):
         self.aws_port = 8883
         self.client_id = "PicroftCoffee"
         self.thing_name = "PicroftCoffee"
-        self.ca_path = "cert/root-CA.crt"
-        self.cert_path = "cert/2fde82229d-certificate.pem.crt"
-        self.key_path = "cert/2fde82229d-private.pem.key"
+        self.ca_path = "/opt/mycroft/skills/PicroftCoffee/cert/root-CA.crt"
+        self.cert_path = "/opt/mycroft/skills/PicroftCoffee/cert/2fde82229d-certificate.pem.crt"
+        self.key_path = "/opt/mycroft/skills/PicroftCoffee/cert/2fde82229d-private.pem.key"
 
         self.mqtt_client = mqtt.Client()
         self.mqtt_client.on_connect = self.on_connect
