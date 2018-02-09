@@ -123,6 +123,7 @@ class MachineControlSkill(MycroftSkill):
         self.mqtt_client.tls_set(self.ca_path, certfile=self.cert_path, keyfile=self.key_path, cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)
 
         self.mqtt_client.connect(self.aws_host, self.aws_port)
+        self.mqtt_client.loop_start()
 
     
 
@@ -170,7 +171,6 @@ class MachineControlSkill(MycroftSkill):
 
     def handle_machine_on_intent(self, message):
         keyword = message.data.get("MachineOnKeyword")
-        self.mqtt_client.loop_start()
         self.controlFunction(keyword)
         self.speak_dialog("machine.on")
 
