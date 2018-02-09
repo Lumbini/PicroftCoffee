@@ -35,11 +35,6 @@ import ssl
 from random import uniform
 import json
 
-# import action
-# import machineControl
-# import coffeeType
-# import coffeeSize
-
 __author__ = 'lumbini'
 
 # Logger: used for debug lines, like "LOGGER.debug(xyz)". These
@@ -49,8 +44,6 @@ LOGGER = getLogger(__name__)
 # The logic of each skill is contained within its own class, which inherits
 # base methods from the MycroftSkill class with the syntax you can see below:
 # "class ____Skill(MycroftSkill)"
-
-
 
 class MachineControlSkill(MycroftSkill):
 
@@ -71,7 +64,6 @@ class MachineControlSkill(MycroftSkill):
         self.load_data_files(dirname(__file__))
         self.initialize_mqtt()
 
-
         machine_on_intent = IntentBuilder("MachineOnIntent").\
             require("MachineOnKeyword").require("CoffeeMachineKeyword").build()
         self.register_intent(machine_on_intent, self.handle_machine_on_intent)
@@ -83,7 +75,6 @@ class MachineControlSkill(MycroftSkill):
         action_intent = IntentBuilder("ActionIntent").\
             require("ActionKeyword").optionally("CoffeeSizeKeyword").require("CoffeeTypeKeyword").build()
         self.register_intent(action_intent, self.handle_action_intent)
-
 
         # coffee_size_intent = IntentBuilder("CoffeeSizeIntent").\
         #     require("CoffeeSizeKeyword").build()
@@ -106,7 +97,6 @@ class MachineControlSkill(MycroftSkill):
     def on_message(self, client, userdata, msg):  
         print (msg.topic + " " + str(msg.payload))
 
-
     def initialize_mqtt(self):
         self.aws_host = "a3s6q2w7jgbcoj.iot.us-east-1.amazonaws.com"
         self.aws_port = 8883
@@ -124,8 +114,6 @@ class MachineControlSkill(MycroftSkill):
 
         self.mqtt_client.connect(self.aws_host, self.aws_port)
         self.mqtt_client.loop_start()
-
-    
 
     def actionFunction(self, action, coffeeType):
         if (action == "brew") or (action == "make"):
@@ -155,7 +143,6 @@ class MachineControlSkill(MycroftSkill):
             payload = "Power OFF"
             # self.mqtt_client.loop_start()
             #sleep(0.5)
-            self.speak("Publishing")
             self.mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
             #print ("sent: " + payload)
             # self.mqtt_client.loop_stop()
@@ -165,7 +152,6 @@ class MachineControlSkill(MycroftSkill):
             payload = "Power ON"
             # self.mqtt_client.loop_start()
             #sleep(0.5)
-            self.speak("Publishing")
             self.mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
             #print ("sent: " + payload)
             # self.mqtt_client.loop_stop()
@@ -186,7 +172,6 @@ class MachineControlSkill(MycroftSkill):
         self.actionFunction(keyword, coffeeType)
         self.speak("The coffee machine will " + keyword + " your " + coffeeType)
 
-
     # def handle_coffee_size_intent(self, message):
     #     keyword = message.data.get("CoffeeSizeKeyword")
     #     coffeeSize.coffeeSizeFunction(keyword)
@@ -200,8 +185,6 @@ class MachineControlSkill(MycroftSkill):
     # def make_coffee(self, key, value):
     #     coffee[str(key)] = str(value)
     #     print(coffee)
-
-
 
     # The "stop" method defines what Mycroft does when told to stop during
     # the skill's execution. In this case, since the skill's functionality
