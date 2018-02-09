@@ -69,6 +69,8 @@ class MachineControlSkill(MycroftSkill):
     # creates and registers each intent that the skill uses
     def initialize(self):
         self.load_data_files(dirname(__file__))
+        self.initialize_mqtt()
+
 
         machine_on_intent = IntentBuilder("MachineOnIntent").\
             require("MachineOnKeyword").require("CoffeeMachineKeyword").build()
@@ -82,7 +84,6 @@ class MachineControlSkill(MycroftSkill):
             require("ActionKeyword").optionally("CoffeeSizeKeyword").require("CoffeeTypeKeyword").build()
         self.register_intent(action_intent, self.handle_action_intent)
 
-        self.initialize_mqtt()
 
         # coffee_size_intent = IntentBuilder("CoffeeSizeIntent").\
         #     require("CoffeeSizeKeyword").build()
@@ -131,11 +132,11 @@ class MachineControlSkill(MycroftSkill):
             # Turn on an LED
             # Publish message over mqtt to turn on LED
             payload = "State BREW " + coffeeType
-            #self.mqtt_client.loop_start()
+            self.mqtt_client.loop_start()
             sleep(0.1)
             self.mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
             #print ("sent: " + payload)
-            #self.mqtt_client.loop_stop()
+            self.mqtt_client.loop_stop()
             
         elif (action == "cancel") or (action == "stop"):
             # Change state to NOT_BUSY
