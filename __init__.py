@@ -123,6 +123,7 @@ class MachineControlSkill(MycroftSkill):
         self.mqtt_client.tls_set(self.ca_path, certfile=self.cert_path, keyfile=self.key_path, cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)
 
         self.mqtt_client.connect(self.aws_host, self.aws_port)
+        self.mqtt_client.loop_forever()
 
     
 
@@ -132,41 +133,41 @@ class MachineControlSkill(MycroftSkill):
             # Turn on an LED
             # Publish message over mqtt to turn on LED
             payload = "State BREW " + coffeeType
-            self.mqtt_client.loop_start()
+            # self.mqtt_client.loop_start()
             sleep(0.5)
             self.mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
             #print ("sent: " + payload)
-            self.mqtt_client.loop_stop()
+            # self.mqtt_client.loop_stop()
             
         elif (action == "cancel") or (action == "stop"):
             # Change state to NOT_BUSY
             # Publish message to turn off LED
             payload = "State WAIT " + coffeeType
-            self.mqtt_client.loop_start()
+            # self.mqtt_client.loop_start()
             sleep(0.5)
             self.mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
             #print ("sent: " + payload)
-            self.mqtt_client.loop_stop()
+            # self.mqtt_client.loop_stop()
 
     def controlFunction(self, keyword):
         if (keyword == "off") or (keyword == "shutdown"):
             # Might be useful to first check if the coffee machine is already off,
             #   or in the middle of brewing. 
             payload = "Power OFF"
-            self.mqtt_client.loop_start()
+            # self.mqtt_client.loop_start()
             sleep(0.5)
             self.mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
             #print ("sent: " + payload)
-            self.mqtt_client.loop_stop()
+            # self.mqtt_client.loop_stop()
 
         elif (keyword == "on") or (keyword == "start"):
             # Send message to turn on coffee
             payload = "Power ON"
-            self.mqtt_client.loop_start()
+            # self.mqtt_client.loop_start()
             sleep(0.5)
             self.mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
             #print ("sent: " + payload)
-            self.mqtt_client.loop_stop()
+            # self.mqtt_client.loop_stop()
 
     def handle_machine_on_intent(self, message):
         keyword = message.data.get("MachineOnKeyword")
