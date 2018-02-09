@@ -82,6 +82,8 @@ class MachineControlSkill(MycroftSkill):
             require("ActionKeyword").optionally("CoffeeSizeKeyword").require("CoffeeTypeKeyword").build()
         self.register_intent(action_intent, self.handle_action_intent)
 
+        self.initialize_mqtt()
+
         # coffee_size_intent = IntentBuilder("CoffeeSizeIntent").\
         #     require("CoffeeSizeKeyword").build()
         # self.register_intent(coffee_size_intent, self.handle_coffee_size_intent)
@@ -206,5 +208,4 @@ class MachineControlSkill(MycroftSkill):
 # The "create_skill()" method is used to create an instance of the skill.
 # Note that it's outside the class itself.
 def create_skill():
-    initialize_mqtt()
     return MachineControlSkill()
