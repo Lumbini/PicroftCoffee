@@ -116,7 +116,6 @@ class MachineControlSkill(MycroftSkill):
         self.mqtt_client.tls_set(ca_path, certfile=cert_path, keyfile=key_path, cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)
 
         self.mqtt_client.connect(aws_host, aws_port)
-        self.mqtt_client.loop_forever()
 
     def on_connect(client, userdata, flags, rc):
         global connect_flag
