@@ -106,14 +106,14 @@ class MachineControlSkill(MycroftSkill):
         self.cert_path = "/opt/mycroft/skills/PicroftCoffee/cert/2fde82229d-certificate.pem.crt"
         self.key_path = "/opt/mycroft/skills/PicroftCoffee/cert/2fde82229d-private.pem.key"
 
-        mqtt_client = mqtt.Client()
-        mqtt_client.on_connect = self.on_connect
-        mqtt_client.on_message = self.on_message
+        self.mqtt_client = mqtt.Client()
+        self.mqtt_client.on_connect = self.on_connect
+        self.mqtt_client.on_message = self.on_message
 
-        mqtt_client.tls_set(self.ca_path, certfile=self.cert_path, keyfile=self.key_path, cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)
+        self.mqtt_client.tls_set(self.ca_path, certfile=self.cert_path, keyfile=self.key_path, cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)
 
-        mqtt_client.connect(self.aws_host, self.aws_port)
-        mqtt_client.loop_start()
+        self.mqtt_client.connect(self.aws_host, self.aws_port)
+        self.mqtt_client.loop_start()
 
 
 
