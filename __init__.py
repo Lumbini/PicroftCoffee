@@ -99,6 +99,13 @@ class MachineControlSkill(MycroftSkill):
     # actually speak the text it's passed--instead, that text is the filename
     # of a file in the dialog folder, and Mycroft speaks its contents when
     # the method is called.
+    def on_connect(client, userdata, flags, rc):
+        global connect_flag
+        connect_flag = True
+
+    def on_message(client, userdata, msg):  
+        print (msg.topic + " " + str(msg.payload))
+
 
     def initialize_mqtt(self):
         self.aws_host = "a3s6q2w7jgbcoj.iot.us-east-1.amazonaws.com"
@@ -110,20 +117,14 @@ class MachineControlSkill(MycroftSkill):
         self.key_path = "cert/2fde82229d-private.pem.key"
 
         self.mqtt_client = mqtt.Client()
-        self.mqtt_client.on_connect = on_connect
-        self.mqtt_client.on_message = on_message
+        self.mqtt_client.on_connect = self.on_connect
+        self.mqtt_client.on_message = self.on_message
 
         self.mqtt_client.tls_set(ca_path, certfile=cert_path, keyfile=key_path, cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)
 
         self.mqtt_client.connect(aws_host, aws_port)
 
-    def on_connect(client, userdata, flags, rc):
-        global connect_flag
-        connect_flag = True
-
-    def on_message(client, userdata, msg):  
-        print (msg.topic + " " + str(msg.payload))
-
+    
 
     def actionFunction(self, action, coffeeType):
         if (action == "brew") or (action == "make"):
