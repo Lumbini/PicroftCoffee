@@ -115,6 +115,7 @@ class MachineControlSkill(MycroftSkill):
         self.mqtt_client.tls_set(ca_path, certfile=cert_path, keyfile=key_path, cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)
 
         self.mqtt_client.connect(aws_host, aws_port)
+        self.mqtt_client.loop_forever()
 
     def on_connect(client, userdata, flags, rc):
         global connect_flag
@@ -130,11 +131,11 @@ class MachineControlSkill(MycroftSkill):
             # Turn on an LED
             # Publish message over mqtt to turn on LED
             payload = "State BREW " + coffeeType
-            self.mqtt_client.loop_start()
+            #self.mqtt_client.loop_start()
             sleep(0.1)
             self.mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
             #print ("sent: " + payload)
-            self.mqtt_client.loop_stop()
+            #self.mqtt_client.loop_stop()
             
         elif (action == "cancel") or (action == "stop"):
             # Change state to NOT_BUSY
