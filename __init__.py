@@ -172,12 +172,12 @@ class MachineControlSkill(MycroftSkill):
     def handle_machine_on_intent(self, message):
         keyword = str(message.data.get("MachineOnKeyword"))
         self.controlFunction(keyword)
-        self.speak_dialog("machine.on")
+        self.speak("machine is on")
 
     def handle_machine_off_intent(self, message):
         keyword = str(message.data.get("MachineOffKeyword"))
         self.controlFunction(keyword)
-        self.speak_dialog("machine.off")
+        self.speak("machine is off")
 
     def handle_action_intent(self, message):
         keyword = str(message.data.get("ActionKeyword").lower())
