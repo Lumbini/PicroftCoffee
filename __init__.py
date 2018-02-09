@@ -141,7 +141,7 @@ class MachineControlSkill(MycroftSkill):
             # Publish message to turn off LED
             payload = "State WAIT " + coffeeType
             self.mqtt_client.loop_start()
-            self.sleep(0.1)
+            sleep(0.1)
             self.mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
             #print ("sent: " + payload)
             self.mqtt_client.loop_stop()
