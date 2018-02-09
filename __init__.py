@@ -149,7 +149,7 @@ class MachineControlSkill(MycroftSkill):
 
         elif (control == "on") or (control == "start"):
             # Send message to turn on coffee
-            payload = "Power ON"
+            payload = "Power " + contol
             # self.mqtt_client.loop_start()
             self.speak("publishing")
             self.mqtt_client.publish("PicroftCoffee-Control", payload, qos=1)
