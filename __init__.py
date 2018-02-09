@@ -99,7 +99,7 @@ class MachineControlSkill(MycroftSkill):
     # actually speak the text it's passed--instead, that text is the filename
     # of a file in the dialog folder, and Mycroft speaks its contents when
     # the method is called.
-    def on_connect(client, userdata, flags, rc):
+    def on_connect(client, userdata, flags):
         global connect_flag
         connect_flag = True
 
