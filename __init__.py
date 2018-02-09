@@ -143,7 +143,7 @@ class MachineControlSkill(MycroftSkill):
             payload = "Power OFF"
             # self.mqtt_client.loop_start()
             self.speak("publishing")
-            self.mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
+            self.mqtt_client.publish("PicroftCoffee-Control", payload, qos=1)
             #print ("sent: " + payload)
             # self.mqtt_client.loop_stop()
 
@@ -152,7 +152,7 @@ class MachineControlSkill(MycroftSkill):
             payload = "Power ON"
             # self.mqtt_client.loop_start()
             self.speak("publishing")
-            self.mqtt_client.publish("PicroftCoffee-Policy", payload, qos=1)
+            self.mqtt_client.publish("PicroftCoffee-Control", payload, qos=1)
             #print ("sent: " + payload)
             # self.mqtt_client.loop_stop()
 
