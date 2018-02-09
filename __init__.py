@@ -115,26 +115,7 @@ class MachineControlSkill(MycroftSkill):
         self.mqtt_client.connect(self.aws_host, self.aws_port)
         self.mqtt_client.loop_start()
 
-    def actionFunction(self, action, coffeeType):
-        if (action == "brew") or (action == "make"):
-            # Change state to BREWING
-            # Turn on an LED
-            # Publish message over mqtt to turn on LED
-            payload = "State BREW " + coffeeType
-            # self.mqtt_client.loop_start()
-            self.mqtt_client.publish("PicroftCoffee-Control", payload, qos=1)
-            #print ("sent: " + payload)
-            # self.mqtt_client.loop_stop()
-            
-        elif (action == "cancel") or (action == "stop"):
-            # Change state to NOT_BUSY
-            # Publish message to turn off LED
-            payload = "State WAIT " + coffeeType
-            # self.mqtt_client.loop_start()
-            #sleep(0.5)
-            self.mqtt_client.publish("PicroftCoffee-Control", payload, qos=1)
-            #print ("sent: " + payload)
-            # self.mqtt_client.loop_stop()
+
 
     def controlFunction(self, control):
         if (control == "off") or (control == "shutdown"):
@@ -152,6 +133,27 @@ class MachineControlSkill(MycroftSkill):
             payload = "Power " + contol
             # self.mqtt_client.loop_start()
             self.speak("publishing")
+            self.mqtt_client.publish("PicroftCoffee-Control", payload, qos=1)
+            #print ("sent: " + payload)
+            # self.mqtt_client.loop_stop()\
+
+    def actionFunction(self, action, coffeeType):
+        if (action == "brew") or (action == "make"):
+            # Change state to BREWING
+            # Turn on an LED
+            # Publish message over mqtt to turn on LED
+            payload = "State BREW " + coffeeType
+            # self.mqtt_client.loop_start()
+            self.mqtt_client.publish("PicroftCoffee-Control", payload, qos=1)
+            #print ("sent: " + payload)
+            # self.mqtt_client.loop_stop()
+            
+        elif (action == "cancel") or (action == "stop"):
+            # Change state to NOT_BUSY
+            # Publish message to turn off LED
+            payload = "State WAIT " + coffeeType
+            # self.mqtt_client.loop_start()
+            #sleep(0.5)
             self.mqtt_client.publish("PicroftCoffee-Control", payload, qos=1)
             #print ("sent: " + payload)
             # self.mqtt_client.loop_stop()
