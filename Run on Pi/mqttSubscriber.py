@@ -64,9 +64,9 @@ aws_host = "a3s6q2w7jgbcoj.iot.us-east-1.amazonaws.com"
 aws_port = 8883
 client_id = "PicroftCoffee"
 thing_name = "PicroftCoffee"
-ca_path = "CoffeeMachine/cert/root-CA.crt"
-cert_path = "CoffeeMachine/cert/2fde82229d-certificate.pem.crt"
-key_path = "CoffeeMachine/cert/2fde82229d-private.pem.key"
+ca_path = "cert/root-CA.crt"
+cert_path = "cert/2fde82229d-certificate.pem.crt"
+key_path = "cert/2fde82229d-private.pem.key"
 
 mqtt_client.tls_set(ca_path, certfile=cert_path, keyfile=key_path, cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)
 
