@@ -180,8 +180,8 @@ class MachineControlSkill(MycroftSkill):
         keyword = str(message.data.get("ActionKeyword").lower())
         coffeeType = str(message.data.get("CoffeeTypeKeyword").lower())
         self.actionFunction(keyword, coffeeType)
-        # self.speak("The coffee machine will " + keyword + "your " + coffeeType)
-        self.speak(keyword)
+        self.speak("The coffee machine will " + keyword + " your " + coffeeType)
+
 
     # def handle_coffee_size_intent(self, message):
     #     keyword = message.data.get("CoffeeSizeKeyword")
