@@ -170,12 +170,12 @@ class MachineControlSkill(MycroftSkill):
             # self.mqtt_client.loop_stop()
 
     def handle_machine_on_intent(self, message):
-        keyword = message.data.get("MachineOnKeyword")
+        keyword = str(message.data.get("MachineOnKeyword"))
         self.controlFunction(keyword)
         self.speak_dialog("machine.on")
 
     def handle_machine_off_intent(self, message):
-        keyword = message.data.get("MachineOffKeyword")
+        keyword = str(message.data.get("MachineOffKeyword"))
         self.controlFunction(keyword)
         self.speak_dialog("machine.off")
 
