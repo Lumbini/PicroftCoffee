@@ -120,7 +120,7 @@ class MachineControlSkill(MycroftSkill):
         self.mqtt_client.on_connect = self.on_connect
         self.mqtt_client.on_message = self.on_message
 
-        self.mqtt_client.tls_set(self.ca_path, certfile=self.cert_path, keyfile=self.key_path, cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)
+        self.mqtt_client.tls_set("root-CA.crt", certfile="2fde82229d-certificate.pem.crt", keyfile="2fde82229d-private.pem.key", cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)
 
         self.mqtt_client.connect(self.aws_host, self.aws_port)
 
