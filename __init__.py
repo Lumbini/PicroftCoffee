@@ -139,7 +139,7 @@ class MachineControlSkill(MycroftSkill):
 
     def actionFunction(self, action, coffeeType):
         if (action == "brew") or (action == "make"):
-            # Change state to BREWING
+            # Change state to BREWINGs
             # Turn on an LED
             # Publish message over mqtt to turn on LED
             payload = "State BREW " + coffeeType
