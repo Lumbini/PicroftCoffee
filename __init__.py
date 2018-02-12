@@ -68,9 +68,9 @@ class MachineControlSkill(MycroftSkill):
             require("MachineOnKeyword").require("CoffeeMachineKeyword").build()
         self.register_intent(machine_on_intent, self.handle_machine_on_intent)
 
-        # machine_off_intent = IntentBuilder("MachineOffIntent").\
-        #     require("MachineOffKeyword").require("CoffeeMachineKeyword").build()
-        # self.register_intent(machine_off_intent, self.handle_machine_off_intent)
+        machine_off_intent = IntentBuilder("MachineOffIntent").\
+            require("MachineOffKeyword").require("CoffeeMachineKeyword").build()
+        self.register_intent(machine_off_intent, self.handle_machine_off_intent)
 
         action_intent = IntentBuilder("ActionIntent").\
             require("ActionKeyword").optionally("CoffeeSizeKeyword").require("CoffeeTypeKeyword").build()
@@ -163,11 +163,11 @@ class MachineControlSkill(MycroftSkill):
         self.controlFunction(keyword)
         
 
-    # def handle_machine_off_intent(self, message):
-    #     keyword = str(message.data.get("MachineOffKeyword").lower())
-    #     self.controlFunction(keyword)
-    #     sleep(0.5)
-    #     self.speak_dialog("machine.off")
+    def handle_machine_off_intent(self, message):
+        keyword = str(message.data.get("MachineOffKeyword").lower())
+        self.controlFunction(keyword)
+        sleep(0.5)
+        self.speak_dialog("machine.off")
 
     def handle_action_intent(self, message):
         keyword = str(message.data.get("ActionKeyword").lower())
