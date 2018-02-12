@@ -116,58 +116,38 @@ class MachineControlSkill(MycroftSkill):
         self.mqtt_client.loop_start()
 
 
-
     def controlFunction(self, control):
         if (control == "off") or (control == "shutdown"):
             # Might be useful to first check if the coffee machine is already off,
             #   or in the middle of brewing. 
-            payload = "Power OFF"
-            # self.mqtt_client.loop_start()
+            payload = "Power off"
             self.mqtt_client.publish("PicroftCoffee-Control", payload, qos=1)
             self.speak_dialog("machine.off")
-            #print ("sent: " + payload)
-            # self.mqtt_client.loop_stop()
 
         elif (control == "on") or (control == "start"):
             # Send message to turn on coffee
-            payload = "Power " + control
-            # self.mqtt_client.loop_start()
+            payload = "Power on"
             self.mqtt_client.publish("PicroftCoffee-Control", payload, qos=1)
             self.speak_dialog("machine.on")
-            #print ("sent: " + payload)
-            # self.mqtt_client.loop_stop()\
 
     def actionFunction(self, action, coffeeType):
         if (action == "brew") or (action == "make"):
             # Change state to BREWINGs
-            # Turn on an LED
-            # Publish message over mqtt to turn on LED
-            payload = "State BREW " + coffeeType
-            # self.mqtt_client.loop_start()
+            payload = "State brew " + coffeeType
             self.mqtt_client.publish("PicroftCoffee-Control", payload, qos=1)
-            #print ("sent: " + payload)
-            # self.mqtt_client.loop_stop()
             
         elif (action == "cancel") or (action == "stop"):
             # Change state to NOT_BUSY
-            # Publish message to turn off LED
-            payload = "State WAIT " + coffeeType
-            # self.mqtt_client.loop_start()
-            #sleep(0.5)
+            payload = "State wait " + coffeeType
             self.mqtt_client.publish("PicroftCoffee-Control", payload, qos=1)
-            #print ("sent: " + payload)
-            # self.mqtt_client.loop_stop()
 
     def handle_machine_on_intent(self, message):
         keyword = str(message.data.get("MachineOnKeyword").lower())
         self.controlFunction(keyword)
-        
 
     def handle_machine_off_intent(self, message):
         keyword = str(message.data.get("MachineOffKeyword").lower())
         self.controlFunction(keyword)
-        sleep(0.5)
-        self.speak_dialog("machine.off")
 
     def handle_action_intent(self, message):
         keyword = str(message.data.get("ActionKeyword").lower())

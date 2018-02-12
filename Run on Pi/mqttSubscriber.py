@@ -25,21 +25,21 @@ def on_connect(client, user, flags, rc):
 
 
 def controlFunction(payload):
-	if "ON" in payload:
+	if "on" in payload:
 		print("Turning ON Coffee Machine (Pin 21)")
 		# gpio.output(21, True)
 		# gpio.output(20, False)
-	elif "OFF" in payload:
+	elif "off" in payload:
 		print("Turning OFF coffee machine (Pin 20)")
 		# gpio.output(21, False)
 		# gpio.output(20, True)
 
 def actionFunction(payload):
-	if "BREW" in payload:
+	if "brew" in payload:
 		print("Brewing Coffee (Pin 18)")
 		# gpio.output(18, True)
 		# gpio.output(16, False)
-	elif "WAIT" in payload:
+	elif "wait" in payload:
 		print("Waiting (Pin 16)")
 		# gpio.output(18, False)
 		# gpio.output(16, True)
