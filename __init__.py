@@ -129,7 +129,6 @@ class MachineControlSkill(MycroftSkill):
             payload = "Power on"
             self.mqtt_client.publish("PicroftCoffee-Control", payload, qos=1)
             self.speak_dialog("machine.on")
-            self.get_response("what.you.want")
 
     def actionFunction(self, action, coffeeType):
         if (action == "brew") or (action == "make"):
