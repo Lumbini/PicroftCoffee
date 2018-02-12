@@ -68,9 +68,9 @@ class MachineControlSkill(MycroftSkill):
             require("MachineOnKeyword").require("CoffeeMachineKeyword").build()
         self.register_intent(machine_on_intent, self.handle_machine_on_intent)
 
-        machine_off_intent = IntentBuilder("MachineOffIntent").\
-            require("MachineOffKeyword").require("CoffeeMachineKeyword").build()
-        self.register_intent(machine_off_intent, self.handle_machine_off_intent)
+        # machine_off_intent = IntentBuilder("MachineOffIntent").\
+        #     require("MachineOffKeyword").require("CoffeeMachineKeyword").build()
+        # self.register_intent(machine_off_intent, self.handle_machine_off_intent)
 
         action_intent = IntentBuilder("ActionIntent").\
             require("ActionKeyword").optionally("CoffeeSizeKeyword").require("CoffeeTypeKeyword").build()
@@ -123,8 +123,8 @@ class MachineControlSkill(MycroftSkill):
             #   or in the middle of brewing. 
             payload = "Power OFF"
             # self.mqtt_client.loop_start()
-            self.speak("publishing")
             self.mqtt_client.publish("PicroftCoffee-Control", payload, qos=1)
+            self.speak_dialog("machine.off")
             #print ("sent: " + payload)
             # self.mqtt_client.loop_stop()
 
@@ -132,8 +132,8 @@ class MachineControlSkill(MycroftSkill):
             # Send message to turn on coffee
             payload = "Power " + contol
             # self.mqtt_client.loop_start()
-            self.speak("publishing")
             self.mqtt_client.publish("PicroftCoffee-Control", payload, qos=1)
+            self.speak_dialog("machine.on")
             #print ("sent: " + payload)
             # self.mqtt_client.loop_stop()\
 
@@ -162,13 +162,13 @@ class MachineControlSkill(MycroftSkill):
         keyword = str(message.data.get("MachineOnKeyword").lower())
         self.controlFunction(keyword)
         sleep(0.5)
-        self.speak_dialog("machine.on")
+        
 
-    def handle_machine_off_intent(self, message):
-        keyword = str(message.data.get("MachineOffKeyword").lower())
-        self.controlFunction(keyword)
-        sleep(0.5)
-        self.speak_dialog("machine.off")
+    # def handle_machine_off_intent(self, message):
+    #     keyword = str(message.data.get("MachineOffKeyword").lower())
+    #     self.controlFunction(keyword)
+    #     sleep(0.5)
+    #     self.speak_dialog("machine.off")
 
     def handle_action_intent(self, message):
         keyword = str(message.data.get("ActionKeyword").lower())
