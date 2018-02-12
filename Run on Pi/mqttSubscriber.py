@@ -29,20 +29,28 @@ def controlFunction(payload):
 		print("Turning ON Coffee Machine (Pin 21)")
 		# gpio.output(21, True)
 		# gpio.output(20, False)
+		# gpio.output(19, False)
+		# gpio.output(16, False)
 	elif "off" in payload:
 		print("Turning OFF coffee machine (Pin 20)")
 		# gpio.output(21, False)
 		# gpio.output(20, True)
+		# gpio.output(19, False)
+		# gpio.output(16, False)
 
 def actionFunction(payload):
 	if "brew" in payload:
 		print("Brewing Coffee (Pin 19)")
 		# gpio.output(19, True)
 		# gpio.output(16, False)
+		# gpio.output(21, True)
+		# gpio.output(20, False)
 	elif "wait" in payload:
 		print("Waiting (Pin 16)")
 		# gpio.output(19, False)
 		# gpio.output(16, True)
+		# gpio.output(21, True)
+		# gpio.output(20, False)
 
 def msg_receive(msg):
 	print ("topic: " + msg.topic)
