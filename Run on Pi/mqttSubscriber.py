@@ -14,7 +14,7 @@ import ssl
 # gpio.output(20, False)
 # gpio.output(21, False)
 # gpio.output(16, False)
-# gpio.output(18, False)
+# gpio.output(19, False)
 
 
 def on_connect(client, user, flags, rc):
@@ -36,12 +36,12 @@ def controlFunction(payload):
 
 def actionFunction(payload):
 	if "brew" in payload:
-		print("Brewing Coffee (Pin 18)")
-		# gpio.output(18, True)
+		print("Brewing Coffee (Pin 19)")
+		# gpio.output(19, True)
 		# gpio.output(16, False)
 	elif "wait" in payload:
 		print("Waiting (Pin 16)")
-		# gpio.output(18, False)
+		# gpio.output(19, False)
 		# gpio.output(16, True)
 
 def msg_receive(msg):
