@@ -75,15 +75,7 @@ class MachineControlSkill(MycroftSkill):
         action_intent = IntentBuilder("ActionIntent").\
             require("ActionKeyword").optionally("CoffeeSizeKeyword").require("CoffeeTypeKeyword").build()
         self.register_intent(action_intent, self.handle_action_intent)
-
-        # coffee_size_intent = IntentBuilder("CoffeeSizeIntent").\
-        #     require("CoffeeSizeKeyword").build()
-        # self.register_intent(coffee_size_intent, self.handle_coffee_size_intent)
-
-        # coffe_type_intent = IntentBuilder("CoffeeTypeIntent").\
-        #     require("CoffeeTypeKeyword").build()
-        # self.register_intent(coffe_type_intent, self.handle_coffee_type_intent)
-
+        
     # The "handle_xxxx_intent" functions define Mycroft's behavior when
     # each of the skill's intents is triggered: in this case, he simply
     # speaks a response. Note that the "speak_dialog" method doesn't
@@ -154,20 +146,6 @@ class MachineControlSkill(MycroftSkill):
         coffeeType = str(message.data.get("CoffeeTypeKeyword").lower())
         self.actionFunction(keyword, coffeeType)
         self.speak("The coffee machine will " + keyword + " your " + coffeeType)
-
-    # def handle_coffee_size_intent(self, message):
-    #     keyword = message.data.get("CoffeeSizeKeyword")
-    #     coffeeSize.coffeeSizeFunction(keyword)
-    #     self.speak_dialog("I got the Size")
-
-    # def handle_coffee_type_intent(self, message):
-    #     keyword = message.data.get("CoffeeTypeKeyword")
-    #     coffeeType.coffeeTypeFunction(keyword)
-    #     self.speak_dialog("I got the type")
-
-    # def make_coffee(self, key, value):
-    #     coffee[str(key)] = str(value)
-    #     print(coffee)
 
     # The "stop" method defines what Mycroft does when told to stop during
     # the skill's execution. In this case, since the skill's functionality

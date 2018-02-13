@@ -5,16 +5,16 @@ import ssl
 
 # import RPi.GPIO as gpio
 
-# gpio.setmode(gpio.BCM)
-# gpio.setup(20, gpio.OUTPUT)
-# gpio.setup(21, gpio.OUTPUT)
-# gpio.setup(16, gpio.OUTPUT)
-# gpio.setup(18, gpio.OUTPUT)
+gpio.setmode(gpio.BCM)
+gpio.setup(20, gpio.OUTPUT)
+gpio.setup(21, gpio.OUTPUT)
+gpio.setup(16, gpio.OUTPUT)
+gpio.setup(18, gpio.OUTPUT)
 
-# gpio.output(20, False)
-# gpio.output(21, False)
-# gpio.output(16, False)
-# gpio.output(19, False)
+gpio.output(20, False)
+gpio.output(21, False)
+gpio.output(16, False)
+gpio.output(19, False)
 
 
 def on_connect(client, user, flags, rc):
@@ -27,30 +27,30 @@ def on_connect(client, user, flags, rc):
 def controlFunction(payload):
 	if "on" in payload:
 		print("Turning ON Coffee Machine (Pin 21)")
-		# gpio.output(21, True)
-		# gpio.output(20, False)
-		# gpio.output(19, False)
-		# gpio.output(16, False)
+		gpio.output(21, True)
+		gpio.output(20, False)
+		gpio.output(19, False)
+		gpio.output(16, False)
 	elif "off" in payload:
 		print("Turning OFF coffee machine (Pin 20)")
-		# gpio.output(21, False)
-		# gpio.output(20, True)
-		# gpio.output(19, False)
-		# gpio.output(16, False)
+		gpio.output(21, False)
+		gpio.output(20, True)
+		gpio.output(19, False)
+		gpio.output(16, False)
 
 def actionFunction(payload):
 	if "brew" in payload:
 		print("Brewing Coffee (Pin 19)")
-		# gpio.output(19, True)
-		# gpio.output(16, False)
-		# gpio.output(21, True)
-		# gpio.output(20, False)
+		gpio.output(19, True)
+		gpio.output(16, False)
+		gpio.output(21, True)
+		gpio.output(20, False)
 	elif "wait" in payload:
 		print("Waiting (Pin 16)")
-		# gpio.output(19, False)
-		# gpio.output(16, True)
-		# gpio.output(21, True)
-		# gpio.output(20, False)
+		gpio.output(19, False)
+		gpio.output(16, True)
+		gpio.output(21, True)
+		gpio.output(20, False)
 
 def msg_receive(msg):
 	print ("topic: " + msg.topic)
@@ -81,10 +81,3 @@ mqtt_client.tls_set(ca_path, certfile=cert_path, keyfile=key_path, cert_reqs=ssl
 mqtt_client.connect(aws_host, aws_port)
 
 mqtt_client.loop_forever()
-
-# States :
-
-# ON 
-# OFF 
-# BREW
-# WAIT
